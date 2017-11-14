@@ -9,7 +9,6 @@ import java.text.DateFormat;
 public class Usuario {
     
     private int id;
-    private String nombre_Usuario;
     private String correo;
     private String nombre;
     private String apellido;
@@ -23,14 +22,6 @@ public class Usuario {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getNombre_Usuario() {
-        return nombre_Usuario;
-    }
-
-    public void setNombre_Usuario(String nombre_Usuario) {
-        this.nombre_Usuario = nombre_Usuario;
     }
 
     public String getCorreo() {
