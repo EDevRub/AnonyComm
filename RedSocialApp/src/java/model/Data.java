@@ -21,7 +21,7 @@ public class Data {
     }
     
     public Usuario getUsuario(String user, String pass) throws SQLException{
-        query ="SELECT * FROM usuario WHERE nombre_Usuario = '"+user+"' AND pass = '"+pass+"';";
+        query ="SELECT * FROM usuario WHERE correo = '"+user+"' AND pass = '"+pass+"';";
         
         rs = con.ejecutarSelect(query);
         

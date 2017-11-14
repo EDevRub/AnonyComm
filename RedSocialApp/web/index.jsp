@@ -14,7 +14,7 @@
     <body>
         <h1>Inicio Sesion</h1>
         <form action="validar.do" method="POST" role="form">
-            <input type="text" class="form-control" name="txtUsuario" placeholder="Ingrese Usuario:">
+            <input type="text" class="form-control" name="txtUsuario" placeholder="Ingrese Correo:">
             <input type="password" class="form-control" name="txtPass" placeholder="Ingrese Contraseña:">
             <input type="submit" value="Iniciar Sesión" align="center" class="btn btn-cod btn-lg btn-block">
         </form>
