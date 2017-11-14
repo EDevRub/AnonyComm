@@ -13,7 +13,7 @@ public class Usuario {
     private String correo;
     private String nombre;
     private String apellido;
-    private DateFormat fecha_Nacimiento;
+    private String fecha_Nacimiento;
     private int sexo;
     private String pass;
 
@@ -57,11 +57,11 @@ public class Usuario {
         this.apellido = apellido;
     }
 
-    public DateFormat getFecha_Nacimiento() {
+    public String getFecha_Nacimiento() {
         return fecha_Nacimiento;
     }
 
-    public void setFecha_Nacimiento(DateFormat fecha_Nacimiento) {
+    public void setFecha_Nacimiento(String fecha_Nacimiento) {
         this.fecha_Nacimiento = fecha_Nacimiento;
     }
 
