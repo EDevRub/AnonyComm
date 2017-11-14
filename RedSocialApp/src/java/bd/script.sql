@@ -18,9 +18,8 @@ create table sexo(
 
 create table usuario(
     id int auto_increment primary key,
-    nombre_Usuario varchar(20),
-    correo varchar(50),
     nombre varchar(20),
+    correo varchar(50),
     apellido varchar(20),
     fecha_Nacimiento date,
     id_sexo int,
