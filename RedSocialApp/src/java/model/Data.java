@@ -28,13 +28,104 @@ public class Data {
         Usuario u = null;
         if (rs.next()) {
             u = new Usuario();
-            u.setCorreo(rs.getString(1));
-            u.setNombre(rs.getString(2));
-            u.setApellido(rs.getString(3));
-            u.setFecha_Nacimiento(rs.getString(4));
-            u.setSexo(rs.getInt(5));
+            u.setId(rs.getInt(1));
+            u.setCorreo(rs.getString(2));
+            u.setNombre(rs.getString(3));
+            u.setApellido(rs.getString(4));
+            u.setFecha_Nacimiento(rs.getString(5));
+            u.setSexo(rs.getInt(6));
            // u.setPass(rs.getString(7));
         }
+        con.desconectar();
+        return u;
+    }
+    
+    public List<Post> getPost(int id) throws SQLException{
+        List<Post> lista = new ArrayList<>();
+        query ="SELECT * FROM post WHERE id_usuario = "+id+" order by fecha desc";
+        
+        rs = con.ejecutarSelect(query);
+        
+        Post p;
+        
+        while (rs.next()) {            
+            p = new Post();
+            p.setId(rs.getInt(1));
+            p.setId_usuario(rs.getInt(2));
+            p.setPost(rs.getString(3));
+            p.setFecha(rs.getString(4));
+            lista.add(p);
+        }
+        con.desconectar();
+        return lista;
+    }
+    
+    public void publicarPost(Post p) throws SQLException{
+        query ="INSERT INTO post VALUES(NULL,'"+p.getId_usuario()+"','"+p.getPost()+"',NOW());";
+        con.ejecutar(query);
+    }
+    
+    public List<Sexo> getSexo() throws SQLException{
+        List<Sexo> lista = new ArrayList<>();
+        query ="select * from sexo;";
+
+        rs = con.ejecutarSelect(query);
+        
+        Sexo s;
+        while (rs.next()) {            
+            s = new Sexo();
+            s.setId(rs.getInt(1));
+            s.setDescripcion(rs.getString(2));
+            lista.add(s);
+        }
+        con.desconectar();
+        return lista;
+    }
+    
+    public void registrarUsuario(Usuario u) throws SQLException{
+        query="INSERT INTO usuario VALUES(NULL,'"+u.getCorreo()+"','"+u.getNombre()+"','"+u.getApellido()+"','"+u.getFecha_Nacimiento()+"','"+u.getSexo()+"','"+u.getPass()+"','nn');";
+        con.ejecutar(query);
+    }
+    
+    public List<Usuario> getUusario(String filtro) throws SQLException{
+        List<Usuario> lista = new ArrayList<>();
+        query="select * from usuario where nombre like '%"+filtro+"%' or apellido like '%"+filtro+"%' limit 10; ";
+        rs = con.ejecutarSelect(query);
+        
+        Usuario u;
+        
+        while (rs.next()) {            
+            u = new Usuario();
+            u.setId(rs.getInt(1));
+            u.setCorreo(rs.getString(2));
+            u.setNombre(rs.getString(3));
+            u.setApellido(rs.getString(4));
+            u.setFecha_Nacimiento(rs.getString(5));
+            u.setSexo(rs.getInt(6));
+           // u.setPass(rs.getString(7));
+           lista.add(u);
+        }
+        con.desconectar();
+        return lista;
+    }
+    
+    public Usuario getUsuario(int id) throws SQLException{
+        query ="SELECT * FROM usuario WHERE id = '"+id+"';";
+        
+        rs = con.ejecutarSelect(query);
+        
+        Usuario u = null;
+        if (rs.next()) {
+            u = new Usuario();
+            u.setId(rs.getInt(1));
+            u.setCorreo(rs.getString(2));
+            u.setNombre(rs.getString(3));
+            u.setApellido(rs.getString(4));
+            u.setFecha_Nacimiento(rs.getString(5));
+            u.setSexo(rs.getInt(6));
+           // u.setPass(rs.getString(7));
+        }
+        con.desconectar();
         return u;
     }
 }

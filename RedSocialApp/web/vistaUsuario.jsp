@@ -26,6 +26,7 @@
         </style>
         
         <%
+            Data d = new Data();
         Usuario u = (Usuario) session.getAttribute("usuario");
         if(u == null){
             response.sendRedirect("error.jsp");
@@ -41,7 +42,6 @@
                 </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#"> <%=u.getNombre()+" "+u.getApellido()%> </a></li>
-                <li><a href="#">Inicio</a></li>
                 <li><a href="#">Seguidores</a></li>
                 <li><a href="#">Seguidos</a></li>
                 <li><a href="cerrarSesion.do">Cerrar Sesión</a></li>
@@ -58,8 +58,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
-                    Nombre          : <%=u.getNombre() +" "+ u.getApellido()%><br>
-                    Cumpleaños      : <%=u.getFecha_Nacimiento()%>
+                    <%
+                        int id = Integer.parseInt(request.getParameter("id"));
+                        Usuario user = d.getUsuario(id);
+                    %>
+                    Nombre          : <%=user.getNombre() +" "+ user.getApellido()%><br>
+                    Cumpleaños      : <%=user.getFecha_Nacimiento()%>
                     
                 </div>
                 
@@ -67,15 +71,11 @@
                     <table class="table">
                         <form action ="publicar.do" method="POST">
                         <tr>
-                            <th><textarea rows="4" cols="50" name="txtPost" required></textarea>
-                                <input type="hidden" value="<%=u.getId()%>" name="idUsuario">
-                            <input type="submit" value="Publicar">
-                            </th>
                         </tr>
                         </form>
                             <%
-                                Data d = new Data();
-                                for(Post p : d.getPost(u.getId())){
+                                if (d.getPost(user.getId())!= null) {
+                                    for(Post p : d.getPost(user.getId())){
                                     //out.print("<tr class='info'>");
                                     //out.print("<td>");
                                         //out.print(p.getPost()+"<hr size='40'>");
@@ -94,6 +94,11 @@
                                     out.print("</td>");
                                     out.print("</tr>");
                                 }
+                                
+                                }else{
+                                    response.sendRedirect("menu.jsp?accion=userNoTienePost");
+                                }
+                                
                             %>
                     </table>
                     

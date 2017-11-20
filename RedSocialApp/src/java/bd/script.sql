@@ -33,7 +33,7 @@ create table post(
     id int auto_increment primary key,
     id_usuario int,
     post varchar(500),
-    fecha date,
+    fecha datetime,
     foreign key(id_usuario) references usuario(id)
 );
 
@@ -50,10 +50,10 @@ insert into sexo values(null,'Masculino');
 insert into sexo values(null,'Femenino');
 insert into sexo values(null,'Otro');
 
-insert into usuario values(null,'pato@gmail.com','Patricio','Gonzales','2014-10-25 20:00:00','3','clave','nn');
-insert into usuario values(null,'nicolas@sgmail.com','Nicolas','Ahumada','2014-10-25 20:00:00','3','clave','nn');
-
-insert into post values(null,1,'holo',now());
+insert into usuario values(null,'pato@gmail.com','Patricio','Gonzalez','1995-11-16','1','1234','nn');
+insert into usuario values(null,'nicolas@gmail.com','Nicolas','Ahumada','2014-10-25','3','clave','nn');
+insert into post values(null,1,'Mi primera publicacion en SocialApp',now());
+insert into post values(null,1,'Mi segunda publicacion en SocialApp xD',now());
 
 insert into seguidor values(null,1,2);
 
@@ -62,6 +62,8 @@ select * from usuario;
 select * from post;
 select * from seguidor;
 
-select * from post where id_usuario = '1' order by fecha asc;
+select * from post where id_usuario = '1' order by fecha desc;
 
-select * from usuario where nombre like '%pa%' or apellido like '%pa%'; 
+select * from usuario where nombre like '%go%' or apellido like '%go%' limit 1; 
+
+SELECT * FROM post WHERE id_usuario = 1

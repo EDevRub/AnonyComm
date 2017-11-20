@@ -11,7 +11,7 @@ public class Post {
     private int id;
     private int id_usuario;
     private String post;
-    private DateFormat fecha;
+    private String fecha;
 
     public int getId() {
         return id;
@@ -37,11 +37,11 @@ public class Post {
         this.post = post;
     }
 
-    public DateFormat getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(DateFormat fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
     
