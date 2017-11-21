@@ -20,7 +20,7 @@
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <!-- Esto es del calendario JQUERY -->
-        
+
         <script>
             $(function () {
                 $("#fechaNacimiento").datepicker();
@@ -35,7 +35,7 @@
                 $("#fechaNacimiento").datepicker("option", "dateFormat", "yy-MM-dd");
             });
         </script>
-        
+
         <script>
             // español
             $.datepicker.regional['es'] = {
@@ -61,7 +61,7 @@
             $.datepicker.setDefaults($.datepicker.regional['es']);
 
         </script>
-        
+
         <title>Inicio Sesion</title>
     </head>
     <body>
@@ -70,24 +70,48 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.jsp">RedSocialApp Inicio De Sesión</a>
                 </div>
-            <ul class="nav navbar-nav">
-            </ul>
-            <form class="navbar-form navbar-right" action="validar.do" method="POST">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="txtUsuario" placeholder="Ingrese Correo:" required="">
-                    <input type="password" class="form-control" name="txtPass" placeholder="Ingrese Contraseña:" required="">
-                </div>
-                <input type="submit" value="Iniciar Sesión" class="btn btn-default">
+                <ul class="nav navbar-nav">
+                </ul>
+                <form class="navbar-form navbar-right" action="validar.do" method="POST">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="txtUsuario" placeholder="Ingrese Correo:" required="">
+                        <input type="password" class="form-control" name="txtPass" placeholder="Ingrese Contraseña:" required="">
+                    </div>
+                    <input type="submit" value="Iniciar Sesión" class="btn btn-default">
                 </form>
             </div>
+            <%
+                if (request.getParameter("m") != null) {
+                    int m = Integer.parseInt(request.getParameter("m"));
+                    switch (m) {
+                        case 2:
+                            out.println("<div class='alert alert-danger'>ERROR al iniciar Sesion verifique datos</div>");
+                            break;
+                    }
+                }
+            %>
         </nav>
-        
+
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
                     <h1>Registro De Usuario</h1>
-                    
+
                     <form action="registrar.do" method="POST">
+
+                        <%
+                            if (request.getParameter("m") != null) {
+                                int m = Integer.parseInt(request.getParameter("m"));
+                                switch (m) {
+                                    case 1:
+                                        out.println("<div class='alert alert-success'>Usuario creado con exito</div>");
+                                        break;
+                                    case 3:
+                                        out.println("<div class='alert alert-danger'>Correo Ya Registrado</div>");
+                                }
+                            }
+                        %>
+
                         <div class="form-group">
                             <input type="text" name="txtNom" placeholder="Nombre: " required="" class="form-control">
                         </div>
@@ -103,10 +127,10 @@
                         <div class="form-group">
                             <select name="cboSexo" class="form-control">
                                 <%
-                                Data d = new Data();
-                                for(Sexo s : d.getSexo()){
-                                    out.print("<option value="+s.getId()+">"+s.getDescripcion()+"</option>");
-                                }
+                                    Data d = new Data();
+                                    for (Sexo s : d.getSexo()) {
+                                        out.print("<option value=" + s.getId() + ">" + s.getDescripcion() + "</option>");
+                                    }
                                 %>
                             </select>
                         </div>
@@ -118,7 +142,7 @@
                         <div class="form-group">
                             <input type="Password" name="txtPass" placeholder="Contraseña: " class="form-control">
                         </div>
-                                
+
                         <input type="submit" value="Registrar" class="btn btn-primary">
                     </form>
                 </div>

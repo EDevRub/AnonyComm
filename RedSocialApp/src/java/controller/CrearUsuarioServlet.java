@@ -21,16 +21,16 @@ public class CrearUsuarioServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             Data d = new Data();
-            String correo,nombre,apellido,fecha_nacimiento,pass;
+            String correo, nombre, apellido, fecha_nacimiento, pass;
             int sexo;
-            
+
             correo = request.getParameter("txtCorreo");
             nombre = request.getParameter("txtNom");
             apellido = request.getParameter("txtApell");
             fecha_nacimiento = request.getParameter("txtFechaNacimineto");
             sexo = Integer.parseInt(request.getParameter("cboSexo"));
             pass = request.getParameter("txtPass");
-            
+
             Usuario nuevo = new Usuario();
             nuevo.setCorreo(correo);
             nuevo.setNombre(nombre);
@@ -38,8 +38,13 @@ public class CrearUsuarioServlet extends HttpServlet {
             nuevo.setFecha_Nacimiento(fecha_nacimiento);
             nuevo.setSexo(sexo);
             nuevo.setPass(pass);
-            d.registrarUsuario(nuevo);
-            response.sendRedirect("index.jsp?accion=realizada");
+            if (d.getUsuario(correo) == null) {
+                d.registrarUsuario(nuevo);
+                response.sendRedirect("index.jsp?m=1");
+            } else {
+                response.sendRedirect("index.jsp?m=3");
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(CrearUsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
