@@ -31,7 +31,7 @@ public class ValidarInicioSesion extends HttpServlet {
             Usuario u = d.getUsuario(usuario, pass);
             
             if (u == null) {
-                response.sendRedirect("error.jsp");
+                response.sendRedirect("index.jsp?m=2");
             }else{
                 HttpSession sesion = req.getSession();
                 sesion.setAttribute("usuario", u);

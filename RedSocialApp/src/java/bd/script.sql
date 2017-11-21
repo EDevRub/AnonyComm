@@ -75,7 +75,7 @@ select * from post where id_usuario = '1' order by fecha desc;
 
 select * from usuario where nombre like '%go%' or apellido like '%go%' limit 1; 
 
-SELECT * FROM post WHERE id_usuario = 1
+SELECT * FROM post WHERE id_usuario = 1;
 
 select comentario.comentario, comentario.fecha from comentario where id_post = 1; 
 
@@ -90,7 +90,7 @@ SELECT usuario.nombre,usuario.apellido,post.post,post.fecha,post.id FROM post IN
 
 DELETE FROM seguidor WHERE id_seguidor = '2' AND id_seguido = '1';
 
+
 select comentario.comentario,comentario.fecha,usuario.nombre,usuario.apellido from comentario,post
 INNER JOIN usuario on post.id_usuario = usuario.id 
 WHERE post.id = 1; order by comentario.fecha asc;
-
