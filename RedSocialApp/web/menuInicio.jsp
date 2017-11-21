@@ -4,6 +4,7 @@
     Author     : pgonzalez
 --%>
 
+<%@page import="model.ComentarioMostrar"%>
 <%@page import="model.UsuarioPost"%>
 <%@page import="model.Post"%>
 <%@page import="model.Data"%>
@@ -38,7 +39,7 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="menu.jsp">RedSocialApp</a>
+                    <a class="navbar-brand" href="menu.jsp">AnonyComm</a>
                 </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="menu.jsp"> <%=u.getNombre()+" "+u.getApellido()%> </a></li>
@@ -68,7 +69,9 @@
                         </form>
                             <%
                                 Data d = new Data();
+                                int aux;
                                 for(UsuarioPost up : d.getPostInicio(u.getId())){
+                                    aux = up.getIdPost();
                                     out.print("<tr>");
                                     out.print("<td>");
                                     out.print("<div class='panel panel-primary'>");
@@ -77,6 +80,22 @@
                                                 out.print(up.getPost());
                                             out.print("</div>");
                                         out.print("<div class='panel-footer'>Fecha Publicación: "+up.getFecha()+"</div>");
+                                        for (ComentarioMostrar c : d.getComentarioMostrar(aux)) {
+                                                    out.print("<div class='panel-footer'>Comentario: " + c.getComentario() + " </br> Fecha Publicación: " + c.getFecha() + "</div>");
+                                            }
+                                       %>
+                                       <form action ="PublicarComentario.do" method="POST">
+                                           <tr>
+                                               <th><textarea rows="4" cols="48" name="txtComentario" required></textarea>
+                                                   <input type="hidden" value="<%=up.getIdPost()%>" name="idComentario">
+                                                   <input type="hidden" value="2" name="url">
+                                                   <input type="hidden" value="2" name="idVista">
+                                                   <input type="submit" value="Publicar">
+                                               </th>
+                                           </tr>
+                                       </form>
+                                   <%
+                                        
                                     out.print("</div>");
                                     out.print("</td>");
                                     out.print("</tr>");

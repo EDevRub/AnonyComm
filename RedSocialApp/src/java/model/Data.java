@@ -171,8 +171,8 @@ public class Data {
 
     public List<UsuarioPost> getPostInicio(int id_usuario) throws SQLException {
         List<UsuarioPost> lista = new ArrayList<>();
-        query = "SELECT usuario.nombre,usuario.apellido,post.post,post.fecha FROM post INNER JOIN seguidor ON post.id_usuario = seguidor.id_seguido INNER JOIN usuario ON usuario.id = seguidor.id_seguido WHERE seguidor.id_seguidor = " + id_usuario + " ORDER BY fecha desc";
-
+        query ="SELECT usuario.nombre,usuario.apellido,post.post,post.fecha,post.id FROM post INNER JOIN seguidor ON post.id_usuario = seguidor.id_seguido INNER JOIN usuario ON usuario.id = seguidor.id_seguido WHERE seguidor.id_seguidor = "+id_usuario+" ORDER BY fecha desc";
+        
         rs = con.ejecutarSelect(query);
 
         UsuarioPost up;
@@ -183,6 +183,7 @@ public class Data {
             up.setApellido(rs.getString(2));
             up.setPost(rs.getString(3));
             up.setFecha(rs.getString(4));
+            up.setIdPost(rs.getInt(5));
             lista.add(up);
         }
         con.desconectar();
@@ -200,5 +201,30 @@ public class Data {
         }
         con.desconectar();
         return u;
+    }
+    
+      public List<ComentarioMostrar> getComentarioMostrar(int id_comentario) throws SQLException{
+        List<ComentarioMostrar> lista = new ArrayList<>();
+        query="select comentario.comentario, comentario.fecha from comentario where id_post = "+id_comentario+"";
+        rs = con.ejecutarSelect(query);
+        
+        ComentarioMostrar com;
+        
+        while(rs.next()){
+            com = new ComentarioMostrar();
+            com.setComentario(rs.getString(1));
+            com.setFecha(rs.getString(2));
+            
+            lista.add(com);
+        }
+        
+        con.desconectar();
+        return lista;
+                
+    }
+      
+          public void publicarComentario(Comentario c) throws SQLException{
+        query = "insert into comentario values(null,'"+c.getId_post()+"','"+c.getComentario()+"',now());";
+        con.ejecutar(query);
     }
 }

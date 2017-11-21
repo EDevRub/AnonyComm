@@ -10,34 +10,44 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.Data;
-import model.Usuario;
+import model.Comentario;
 
-@WebServlet(name = "SeguidoresServlet", urlPatterns = {"/seguidores.do"})
-public class SeguidoresServlet extends HttpServlet {
 
+@WebServlet(name = "PublicarComentarioServelt", urlPatterns = {"/PublicarComentario.do"})
+public class PublicarComentarioServelt extends HttpServlet {
+
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             Data d = new Data();
-            HttpSession session = request.getSession();
-            Usuario u = (Usuario) session.getAttribute("usuario");
-            if(u == null){
-                response.sendRedirect("vistaUsuario.jsp");
-            }else{
+            int id_post;
+            String comentario;
+            int url, idUser;
+            
+            url = Integer.parseInt(request.getParameter("url"));
+            idUser = Integer.parseInt(request.getParameter("idVista"));
+            
+            id_post = Integer.parseInt(request.getParameter("idComentario"));
+            comentario = request.getParameter("txtComentario");
+            System.out.println(url);
+            Comentario n = new Comentario();
+            n.setId_post(id_post);
+            n.setComentario(comentario);
+            
+            d.publicarComentario(n);
+            if (url == 1) {
+                response.sendRedirect("vistaUsuario.jsp?id="+idUser);
+            }else if (url == 2) {
                 response.sendRedirect("menuInicio.jsp");
+            }else if (url == 3) {
+                response.sendRedirect("menu.jsp");
             }
-            int idSeguido = Integer.parseInt(request.getParameter("id"));
-            int idSeguidor = u.getId();
             
-            d.seguir(idSeguidor, idSeguido);
             
-        } catch (SQLException ex) {
-            Logger.getLogger(SeguidoresServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SeguidoresServlet.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
 
@@ -53,7 +63,13 @@ public class SeguidoresServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(PublicarComentarioServelt.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PublicarComentarioServelt.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -67,7 +83,13 @@ public class SeguidoresServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(PublicarComentarioServelt.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PublicarComentarioServelt.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

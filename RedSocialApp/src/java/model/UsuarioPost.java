@@ -5,6 +5,7 @@ public class UsuarioPost {
     private String apellido;
     private String post;
     private String fecha;
+    private int idPost;
 
     public String getNombre() {
         return nombre;
@@ -36,6 +37,14 @@ public class UsuarioPost {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public int getIdPost() {
+        return idPost;
+    }
+
+    public void setIdPost(int idPost) {
+        this.idPost = idPost;
     }
     
     

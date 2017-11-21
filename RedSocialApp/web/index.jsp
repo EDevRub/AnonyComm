@@ -68,7 +68,7 @@
         <nav class="navbar navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.jsp">RedSocialApp Inicio De Sesión</a>
+                    <a class="navbar-brand" href="index.jsp">AnonyComm Inicio De Sesión</a>
                 </div>
                 <ul class="nav navbar-nav">
                 </ul>
