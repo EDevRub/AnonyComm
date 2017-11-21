@@ -16,7 +16,7 @@ public class Data {
                 "localhost",
                 "bd_RedSocial",//nombre BD
                 "root",
-                ""//Password
+                "123456"//Password
         );
     }
     

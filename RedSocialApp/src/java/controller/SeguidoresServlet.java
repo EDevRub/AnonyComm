@@ -25,9 +25,9 @@ public class SeguidoresServlet extends HttpServlet {
             HttpSession session = request.getSession();
             Usuario u = (Usuario) session.getAttribute("usuario");
             if(u == null){
-                response.sendRedirect("menu.jsp");
+                response.sendRedirect("vistaUsuario.jsp");
             }else{
-            
+                response.sendRedirect("menu.jsp");
             }
             int idSeguido = Integer.parseInt(request.getParameter("id"));
             int idSeguidor = u.getId();
