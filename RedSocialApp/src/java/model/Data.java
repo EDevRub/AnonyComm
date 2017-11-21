@@ -128,4 +128,63 @@ public class Data {
         con.desconectar();
         return u;
     }
+    
+    public void seguir(int seguidor, int seguido) throws SQLException{
+        query = "insert into seguidor values(null,'"+seguidor+"','"+seguido+"');";
+        con.ejecutar(query);
+    }
+    
+    public List<Usuario> getUusarioSeguido(int id) throws SQLException{
+        List<Usuario> lista = new ArrayList<>();
+        query="SELECT usuario.nombre,usuario.apellido FROM usuario INNER JOIN seguidor ON usuario.id = seguidor.id_seguido WHERE seguidor.id_seguidor = "+id;
+        rs = con.ejecutarSelect(query);
+        
+        Usuario u;
+        
+        while (rs.next()) {            
+            u = new Usuario();
+            u.setNombre(rs.getString(1));
+            u.setApellido(rs.getString(2));
+           lista.add(u);
+        }
+        con.desconectar();
+        return lista;
+    }
+    
+    public List<Usuario> getUusarioSeguidores(int id) throws SQLException{
+        List<Usuario> lista = new ArrayList<>();
+        query="SELECT usuario.nombre,usuario.apellido FROM usuario INNER JOIN seguidor ON usuario.id = seguidor.id_seguidor WHERE seguidor.id_seguido = "+id;
+        rs = con.ejecutarSelect(query);
+        
+        Usuario u;
+        
+        while (rs.next()) {            
+            u = new Usuario();
+            u.setNombre(rs.getString(1));
+            u.setApellido(rs.getString(2));
+           lista.add(u);
+        }
+        con.desconectar();
+        return lista;
+    }
+    
+    public List<UsuarioPost> getPostInicio(int id_usuario) throws SQLException{
+        List<UsuarioPost> lista = new ArrayList<>();
+        query ="SELECT usuario.nombre,usuario.apellido,post.post,post.fecha FROM post INNER JOIN seguidor ON post.id_usuario = seguidor.id_seguido INNER JOIN usuario ON usuario.id = seguidor.id_seguido WHERE seguidor.id_seguidor = "+id_usuario+" ORDER BY fecha desc";
+        
+        rs = con.ejecutarSelect(query);
+        
+        UsuarioPost up;
+        
+        while (rs.next()) {            
+            up = new UsuarioPost();
+            up.setNombre(rs.getString(1));
+            up.setApellido(rs.getString(2));
+            up.setPost(rs.getString(3));
+            up.setFecha(rs.getString(4));
+            lista.add(up);
+        }
+        con.desconectar();
+        return lista;
+    }
 }

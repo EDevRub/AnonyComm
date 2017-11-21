@@ -10,27 +10,34 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Data;
 import model.Usuario;
 
-@WebServlet(name = "BuscarServlet", urlPatterns = {"/buscar.do"})
-public class BuscarServlet extends HttpServlet {
+@WebServlet(name = "SeguidoresServlet", urlPatterns = {"/seguidores.do"})
+public class SeguidoresServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String filtro = request.getParameter("filtro");
             Data d = new Data();
+            HttpSession session = request.getSession();
+            Usuario u = (Usuario) session.getAttribute("usuario");
+            if(u == null){
+                response.sendRedirect("menu.jsp");
+            }else{
             
-            for (Usuario u : d.getUusario(filtro)) {
-                out.println("<br>"
-                        + "<a href='vistaUsuario.jsp?id="+u.getId()+"' class=\"btn btn-info\" role=\"button\">"+u.getNombre()+" " +u.getApellido()+"</a>");
             }
+            int idSeguido = Integer.parseInt(request.getParameter("id"));
+            int idSeguidor = u.getId();
+            
+            d.seguir(idSeguidor, idSeguido);
+            
         } catch (SQLException ex) {
-            Logger.getLogger(BuscarServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SeguidoresServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BuscarServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SeguidoresServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

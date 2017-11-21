@@ -4,6 +4,7 @@
     Author     : pgonzalez
 --%>
 
+<%@page import="model.UsuarioPost"%>
 <%@page import="model.Post"%>
 <%@page import="model.Data"%>
 <%@page import="model.Usuario"%>
@@ -57,62 +58,33 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
-                    Nombre          : <%=u.getNombre() +" "+ u.getApellido()%><br>
-                    Cumpleaños      : <%=u.getFecha_Nacimiento()%>
-                    
                 </div>
                 
-                <div class="col-sm-4">
+                <div class="col-sm-4" algin="center">
+                    <table class="table">
                         <form action ="publicar.do" method="POST">
                         <tr>
-                            <th><textarea rows="4" cols="48" name="txtPost" required></textarea><br>
-                                <input type="hidden" value="<%=u.getId()%>" name="idUsuario">
-                            <input type="submit" value="Publicar">
-                            </th>
                         </tr>
                         </form>
                             <%
                                 Data d = new Data();
-                                for(Post p : d.getPost(u.getId())){
-                                    //out.print("<tr class='info'>");
-                                    //out.print("<td>");
-                                        //out.print(p.getPost()+"<hr size='40'>");
-                                        //out.print("Fecha Publicación: "+p.getFecha());
-                                    //out.print("</td>");
-                                    //out.print("</tr>");
+                                for(UsuarioPost up : d.getPostInicio(u.getId())){
+                                    out.print("<tr>");
+                                    out.print("<td>");
                                     out.print("<div class='panel panel-primary'>");
-                                        out.print("<div class='panel-heading'> </div>");
-                                            out.print("<div class='panel-body' style='word-wrap: break-word'>"+p.getPost()+"</div>");
-                                        out.print("<div class='panel-footer'>Fecha Publicación: "+p.getFecha()+"</div>");
+                                        out.print("<div class='panel-heading'>"+up.getNombre()+" "+up.getApellido()+"</div>");
+                                            out.print("<div class='panel-body'>");
+                                                out.print(up.getPost());
+                                            out.print("</div>");
+                                        out.print("<div class='panel-footer'>Fecha Publicación: "+up.getFecha()+"</div>");
                                     out.print("</div>");
+                                    out.print("</td>");
+                                    out.print("</tr>");
                                 }
                             %>
-                    
+                    </table>
                 </div>
-                
-                    <div class="col-sm-4" align="right">
-                        <input type="text" placeholder="Buscar" id="txtBuscar" onkeyup="buscar()">
-                        <div id="resultado"></div>
-                        
-                    </div>
             </div>
         </div>
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script>
-        function buscar(){
-            // lo que el usuario escribió
-            var txtFiltro = $("#txtBuscar").val();
-
-            $.ajax({
-                url: "buscar.do",
-                data: {
-                  filtro: txtFiltro
-                },
-                success: function( result ) {
-                  $( "#resultado" ).html(result);
-                }
-              });
-        }
-    </script>
     </body>
 </html>

@@ -71,7 +71,6 @@
                     <a class="navbar-brand" href="index.jsp">RedSocialApp Inicio De Sesión</a>
                 </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="registrar_usuario.jsp">Crear Cuenta</a></li>
             </ul>
             <form class="navbar-form navbar-right" action="validar.do" method="POST">
                 <div class="form-group">
@@ -113,7 +112,7 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name="txtCorreo" placeholder="Correo: " required="" class="form-control">
+                            <input type="email" name="txtCorreo" placeholder="Correo: " required="" class="form-control">
                         </div>
 
                         <div class="form-group">

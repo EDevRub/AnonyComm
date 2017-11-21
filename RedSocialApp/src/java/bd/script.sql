@@ -55,7 +55,7 @@ insert into usuario values(null,'nicolas@gmail.com','Nicolas','Ahumada','2014-10
 insert into post values(null,1,'Mi primera publicacion en SocialApp',now());
 insert into post values(null,1,'Mi segunda publicacion en SocialApp xD',now());
 
-insert into seguidor values(null,1,2);
+insert into seguidor values(null,2,3);
 
 select * from sexo;
 select * from usuario;
@@ -67,3 +67,13 @@ select * from post where id_usuario = '1' order by fecha desc;
 select * from usuario where nombre like '%go%' or apellido like '%go%' limit 1; 
 
 SELECT * FROM post WHERE id_usuario = 1
+
+SELECT id_seguido FROM usuario,seguidor
+WHERE id_seguidor = usuario.id;
+--MUESTRA A QUIENES SIGO.
+SELECT usuario.nombre,usuario.apellido FROM usuario INNER JOIN seguidor ON usuario.id = seguidor.id_seguido WHERE seguidor.id_seguidor = 1;
+--MUESTRA A QUIENES ME SIGUEN.
+SELECT usuario.nombre,usuario.apellido FROM usuario INNER JOIN seguidor ON usuario.id = seguidor.id_seguidor WHERE seguidor.id_seguido = 1;
+--MUESTRA LAS PUBLICACIONES DE USUARIOS A LOS QUE SIGUES
+SELECT usuario.nombre,usuario.apellido,post.post,post.fecha FROM post INNER JOIN seguidor ON post.id_usuario = seguidor.id_seguido INNER JOIN usuario ON usuario.id = seguidor.id_seguido WHERE seguidor.id_seguidor = 1 ORDER BY fecha desc;
+

@@ -35,7 +35,7 @@ public class ValidarInicioSesion extends HttpServlet {
             }else{
                 HttpSession sesion = req.getSession();
                 sesion.setAttribute("usuario", u);
-                response.sendRedirect("menu.jsp");
+                response.sendRedirect("menuInicio.jsp");
             }
             
         } catch (SQLException ex) {

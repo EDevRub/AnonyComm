@@ -29,7 +29,7 @@
             Data d = new Data();
         Usuario u = (Usuario) session.getAttribute("usuario");
         if(u == null){
-            response.sendRedirect("error.jsp");
+            response.sendRedirect("menu.jsp");
         }else{
             
         }
@@ -41,16 +41,15 @@
                     <a class="navbar-brand" href="menu.jsp">RedSocialApp</a>
                 </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#"> <%=u.getNombre()+" "+u.getApellido()%> </a></li>
-                <li><a href="#">Seguidores</a></li>
-                <li><a href="#">Seguidos</a></li>
+                <li class="active"><a href="menu.jsp"> <%=u.getNombre()+" "+u.getApellido()%> </a></li>
+                <li><a href="seguidores.jsp">Seguidores</a></li>
+                <li><a href="seguidos.jsp">Seguidos</a></li>
                 <li><a href="cerrarSesion.do">Cerrar Sesión</a></li>
             </ul>
             <form class="navbar-form navbar-right">
                 <div class="form-group">
                     
                 </div>
-                <button type="submit" class="btn btn-default">Buscar</button>
                 </form>
             </div>
         </nav>
@@ -64,6 +63,8 @@
                     %>
                     Nombre          : <%=user.getNombre() +" "+ user.getApellido()%><br>
                     Cumpleaños      : <%=user.getFecha_Nacimiento()%>
+                    <a href="seguidores.do?id=<%=user.getId()%>">Seguir</a>
+                    <a href="seguidores.do?id=<%=user.getId()%>">Dejar De Seguir</a>
                     
                 </div>
                 
