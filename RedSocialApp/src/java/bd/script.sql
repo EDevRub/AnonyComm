@@ -46,6 +46,14 @@ create table seguidor(
     foreign key(id_seguido) references usuario(id)
 );
 
+create table comentario(
+    id int auto_increment primary key,
+    id_post int,
+    comentario varchar(500),
+    fecha datetime,
+    foreign key(id_post) references post(id)
+);
+
 insert into sexo values(null,'Masculino');
 insert into sexo values(null,'Femenino');
 insert into sexo values(null,'Otro');
@@ -54,6 +62,7 @@ insert into usuario values(null,'pato@gmail.com','Patricio','Gonzalez','1995-11-
 insert into usuario values(null,'nicolas@gmail.com','Nicolas','Ahumada','2014-10-25','3','clave','nn');
 insert into post values(null,1,'Mi primera publicacion en SocialApp',now());
 insert into post values(null,1,'Mi segunda publicacion en SocialApp xD',now());
+insert into comentario values(null,1,'mi Primer comentario',now());
 
 insert into seguidor values(null,2,3);
 
@@ -68,6 +77,8 @@ select * from usuario where nombre like '%go%' or apellido like '%go%' limit 1;
 
 SELECT * FROM post WHERE id_usuario = 1
 
+select comentario.comentario, comentario.fecha from comentario where id_post = 1; 
+
 SELECT id_seguido FROM usuario,seguidor
 WHERE id_seguidor = usuario.id;
 --MUESTRA A QUIENES SIGO.
@@ -76,4 +87,8 @@ SELECT usuario.nombre,usuario.apellido FROM usuario INNER JOIN seguidor ON usuar
 SELECT usuario.nombre,usuario.apellido FROM usuario INNER JOIN seguidor ON usuario.id = seguidor.id_seguidor WHERE seguidor.id_seguido = 1;
 --MUESTRA LAS PUBLICACIONES DE USUARIOS A LOS QUE SIGUES
 SELECT usuario.nombre,usuario.apellido,post.post,post.fecha FROM post INNER JOIN seguidor ON post.id_usuario = seguidor.id_seguido INNER JOIN usuario ON usuario.id = seguidor.id_seguido WHERE seguidor.id_seguidor = 1 ORDER BY fecha desc;
+
+select comentario.comentario,comentario.fecha,usuario.nombre,usuario.apellido from comentario,post
+INNER JOIN usuario on post.id_usuario = usuario.id 
+WHERE post.id = 1; order by comentario.fecha asc;
 
