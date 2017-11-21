@@ -16,7 +16,7 @@ public class Data {
                 "localhost",
                 "bd_RedSocial",//nombre BD
                 "root",
-                "123456"//Password
+                ""//Password
         );
     }
     
@@ -186,5 +186,10 @@ public class Data {
         }
         con.desconectar();
         return lista;
+    }
+    
+    public void dejarDeSeguir(int id_seguidor, int id_seguido) throws SQLException{
+        query="DELETE FROM seguidor WHERE id_seguidor = '"+id_seguidor+"' AND id_seguido = '"+id_seguido+"';";
+        con.ejecutar(query);
     }
 }

@@ -62,9 +62,9 @@
                         Usuario user = d.getUsuario(id);
                     %>
                     Nombre          : <%=user.getNombre() +" "+ user.getApellido()%><br>
-                    Cumpleaños      : <%=user.getFecha_Nacimiento()%>
-                    <a href="seguidores.do?id=<%=user.getId()%>">Seguir</a>
-                    <a href="seguidores.do?id=<%=user.getId()%>">Dejar De Seguir</a>
+                    Cumpleaños      : <%=user.getFecha_Nacimiento()%><br>
+                    <a href="seguidores.do?id=<%=user.getId()%>">Seguir</a><br>
+                    <a href="dejarSeguir.do?id=<%=user.getId()%>">Dejar De Seguir</a>
                     
                 </div>
                 
